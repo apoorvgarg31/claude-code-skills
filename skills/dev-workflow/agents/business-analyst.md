@@ -134,3 +134,9 @@ phases_completed:
 - Any existing systems to integrate?
 - Third-party services needed?
 - Authentication requirements?
+
+## Tips for Better Specs
+- Be specific about data types
+- Include error scenarios
+- Define success metrics
+- Note security requirements
