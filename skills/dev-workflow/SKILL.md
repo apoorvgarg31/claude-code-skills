@@ -129,3 +129,13 @@ history:
 - [agents/devops.md](agents/devops.md) - DevOps sub-agent
 - [templates/tech-spec.yaml](templates/tech-spec.yaml) - Tech spec template
 - [templates/workflow.yaml](templates/workflow.yaml) - Workflow state template
+
+## Quick Reference
+
+| Phase | Input | Output | Next |
+|-------|-------|--------|------|
+| BA | User requirements | tech-spec.yaml | /developer |
+| Developer | Tech spec | Code + commits | /code-review |
+| Code Review | Code changes | review-notes.yaml | /test or /developer |
+| Test | Code | test-results.yaml | /devops or /developer |
+| DevOps | Tested code | Deployed app | Complete |
