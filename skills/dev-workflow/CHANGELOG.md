@@ -15,3 +15,15 @@ All notable changes to dev-workflow.
 - Workflow templates
 - Helper scripts
 - Example projects
+
+## [1.1.0] - 2026-02-01
+
+### Added
+- State backup/restore scripts
+- More templates (review-request, deploy-results, workflow-complete)
+- Example projects (React, Python API)
+- Hooks documentation
+- Pro tips for all agents
+- Extended checklists
+- FAQ and troubleshooting docs
+- Badges in README
