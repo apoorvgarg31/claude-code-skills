@@ -1,5 +1,10 @@
 # dev-workflow
 
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-purple)
+
+# dev-workflow
+
 A comprehensive Claude Code skill that implements a complete software development workflow with specialized sub-agents.
 
 ## Features
