@@ -140,3 +140,8 @@ phases_completed:
 - Include error scenarios
 - Define success metrics
 - Note security requirements
+
+## Pro Tips
+- Ask clarifying questions early
+- Document assumptions
+- Validate understanding before spec
