@@ -210,3 +210,10 @@ railway up
 flyctl launch
 flyctl deploy
 ```
+
+## Post-Deploy Monitoring
+- Set up error tracking (Sentry)
+- Configure logging
+- Set up uptime monitoring
+- Create alert channels
+- Document runbook
