@@ -134,3 +134,8 @@ If you receive feedback from Code Review:
 - Keep functions small (<20 lines)
 - Use meaningful names
 - Comment the "why", not the "what"
+
+## Pro Tips
+- Commit early, commit often
+- Test as you go
+- Keep PR size small
