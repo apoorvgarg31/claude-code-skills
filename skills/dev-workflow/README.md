@@ -161,3 +161,17 @@ All progress is saved to YAML files in `state/`:
 ## License
 
 MIT
+
+## FAQ
+
+### Q: Can I skip phases?
+A: Not recommended. Each phase builds on the previous.
+
+### Q: How do I resume a workflow?
+A: The state files track progress. Just run the appropriate command.
+
+### Q: Can I customize the agents?
+A: Yes! Edit the files in `agents/` folder.
+
+### Q: What if code review keeps failing?
+A: Check `state/review-notes.yaml` for specific issues.
