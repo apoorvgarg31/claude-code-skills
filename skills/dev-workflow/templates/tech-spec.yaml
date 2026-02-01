@@ -1,0 +1,60 @@
+# Tech Spec Template
+# Filled by Business Analyst sub-agent
+
+project:
+  name: ""
+  description: ""
+  created_at: ""
+
+problem_statement: |
+  # What problem does this project solve?
+
+target_users:
+  - # User type 1
+  - # User type 2
+
+features:
+  mvp:
+    - feature: ""
+      description: ""
+      priority: high  # high | medium | low
+      acceptance_criteria:
+        - # Criterion 1
+        - # Criterion 2
+  
+  future:
+    - feature: ""
+      description: ""
+      priority: low
+
+tech_stack:
+  language: ""
+  framework: ""
+  database: ""  # Optional
+  external_apis: []
+  # - name: ""
+  #   purpose: ""
+
+architecture:
+  components: []
+  # - name: ""
+  #   responsibility: ""
+  
+  data_flow: |
+    # How data flows through the system
+
+constraints:
+  timeline: ""
+  performance: ""
+  security: ""
+
+out_of_scope:
+  - # Things explicitly NOT included
+
+open_questions:
+  - # Any unresolved questions
+
+approval:
+  approved: false
+  approved_at: ""
+  approved_by: "user"

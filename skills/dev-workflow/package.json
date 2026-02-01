@@ -1,0 +1,49 @@
+{
+  "name": "@apoorvgarg-31/dev-workflow",
+  "version": "1.0.0",
+  "description": "Claude Code skill for complete development workflow with BA, Developer, Code Review, Test, and DevOps sub-agents",
+  "keywords": [
+    "claude-code",
+    "skill",
+    "development",
+    "workflow",
+    "code-review",
+    "testing",
+    "devops",
+    "business-analyst",
+    "agile",
+    "sdlc"
+  ],
+  "author": "Apoorv Garg",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apoorvgarg31/claude-code-skills"
+  },
+  "files": [
+    "SKILL.md",
+    "README.md",
+    "agents/",
+    "templates/",
+    "state/"
+  ],
+  "claude-skill": {
+    "name": "dev-workflow",
+    "invocation": "/new-project",
+    "sub-commands": [
+      "/developer",
+      "/code-review",
+      "/test",
+      "/devops",
+      "/workflow-status"
+    ],
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep"
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+# Workflow State Template
+# Copy this to state/workflow.yaml when starting a new project
+
+project_name: ""
+created_at: ""
+current_phase: "ba"  # ba | developer | code-review | test | devops | complete
+
+phases_completed: []
+
+history: []
+# Example history entry:
+# - phase: ba
+#   started: "2026-02-01T23:00:00Z"
+#   completed: "2026-02-01T23:15:00Z"
+#   notes: "Tech spec created"
+
+config:
+  skip_devops: false  # Set to true if no deployment needed
+  auto_advance: true  # Automatically move to next phase
+
+stats:
+  total_commits: 0
+  review_iterations: 0
+  test_runs: 0
