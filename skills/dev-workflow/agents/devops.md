@@ -189,3 +189,24 @@ rolled_back_to: "previous_version"
 - No secrets in code or logs
 - Verify deployment actually worked
 - Save everything to state files
+
+## Platform Guides
+
+### Vercel
+```bash
+npm i -g vercel
+vercel login
+vercel --prod
+```
+
+### Railway
+```bash
+railway login
+railway up
+```
+
+### Fly.io
+```bash
+flyctl launch
+flyctl deploy
+```
