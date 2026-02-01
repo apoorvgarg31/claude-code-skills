@@ -141,3 +141,11 @@ phases_completed:
 - [ ] CORS configured properly
 - [ ] No sensitive data in URLs
 - [ ] Proper session management
+
+## Performance Checklist
+- [ ] Database queries optimized
+- [ ] Appropriate indexes
+- [ ] Pagination for large lists
+- [ ] Lazy loading where appropriate
+- [ ] No memory leaks
+- [ ] Async operations used correctly
