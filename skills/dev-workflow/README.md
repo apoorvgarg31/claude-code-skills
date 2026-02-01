@@ -175,3 +175,14 @@ A: Yes! Edit the files in `agents/` folder.
 
 ### Q: What if code review keeps failing?
 A: Check `state/review-notes.yaml` for specific issues.
+
+## Troubleshooting
+
+### "No workflow found"
+Run `/new-project` to initialize.
+
+### State files corrupted
+Use `./scripts/restore-state.sh` with a backup.
+
+### Stuck in a phase
+Check the state file for that phase and fix issues.
