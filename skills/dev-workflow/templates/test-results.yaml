@@ -1,0 +1,15 @@
+# Test Results Template
+tested_at: ""
+test_framework: ""
+existing_tests:
+  total: 0
+  passed: 0
+  failed: 0
+  skipped: 0
+  failures: []
+new_tests_written: []
+final_results:
+  total: 0
+  passed: 0
+  failed: 0
+  coverage: ""
