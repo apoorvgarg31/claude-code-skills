@@ -128,3 +128,9 @@ If you receive feedback from Code Review:
 - `refactor:` - Code refactoring
 - `chore:` - Maintenance
 - `style:` - Formatting
+
+## Code Organization
+- One module = one responsibility
+- Keep functions small (<20 lines)
+- Use meaningful names
+- Comment the "why", not the "what"
