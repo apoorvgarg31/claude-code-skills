@@ -1,0 +1,10 @@
+# State files (user-specific)
+state/*.yaml
+!state/.gitkeep
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
