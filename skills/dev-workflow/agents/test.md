@@ -160,3 +160,28 @@ def test_feature_does_something():
 - Keep tests fast and independent
 - Save all results to state files
 - Clear feedback on failures
+
+## Common Test Patterns
+
+### Unit Test
+```python
+def test_function_returns_expected():
+    result = function(input)
+    assert result == expected
+```
+
+### Mock Test
+```python
+@patch('module.dependency')
+def test_with_mock(mock_dep):
+    mock_dep.return_value = 'mocked'
+    result = function_using_dep()
+    assert result == 'mocked'
+```
+
+### Integration Test
+```python
+def test_full_flow(client):
+    response = client.post('/api/users', json={...})
+    assert response.status_code == 201
+```
