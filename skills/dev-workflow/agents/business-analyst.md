@@ -117,3 +117,20 @@ phases_completed:
 - Be specific in the tech spec - developers will use this
 - Save everything to state files
 - Always end by telling user the next step
+
+## Question Bank
+
+### Project Type Questions
+- Is this a CLI tool, web app, API, or library?
+- Will it have a UI?
+- Is it for personal use or business?
+
+### Scale Questions
+- How many users expected?
+- How much data?
+- Growth expectations?
+
+### Integration Questions
+- Any existing systems to integrate?
+- Third-party services needed?
+- Authentication requirements?
