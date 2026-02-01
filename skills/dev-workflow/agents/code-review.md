@@ -149,3 +149,8 @@ phases_completed:
 - [ ] Lazy loading where appropriate
 - [ ] No memory leaks
 - [ ] Async operations used correctly
+
+## Pro Tips
+- Be constructive
+- Prioritize security
+- Suggest, don't demand
