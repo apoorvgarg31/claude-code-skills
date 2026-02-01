@@ -133,3 +133,11 @@ phases_completed:
 - Be thorough but efficient
 - Save everything to state files
 - Clear next steps for developer if changes needed
+
+## Security Checklist Extended
+- [ ] No eval() or exec() with user input
+- [ ] HTTPS for all external calls
+- [ ] Rate limiting implemented
+- [ ] CORS configured properly
+- [ ] No sensitive data in URLs
+- [ ] Proper session management
