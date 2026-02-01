@@ -195,3 +195,8 @@ Focus on:
 - Critical business logic
 - Error handling paths
 - Edge cases
+
+## Pro Tips
+- Test edge cases
+- Mock external deps
+- Keep tests fast
