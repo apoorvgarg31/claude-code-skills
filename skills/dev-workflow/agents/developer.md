@@ -119,3 +119,12 @@ If you receive feedback from Code Review:
 - Don't skip tests
 - Save progress frequently
 - If blocked, document in `dev-progress.yaml` and ask user
+
+## Commit Message Prefixes
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `docs:` - Documentation
+- `test:` - Tests
+- `refactor:` - Code refactoring
+- `chore:` - Maintenance
+- `style:` - Formatting
