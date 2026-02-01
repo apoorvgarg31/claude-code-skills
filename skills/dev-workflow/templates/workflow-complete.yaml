@@ -1,0 +1,19 @@
+# Workflow Complete Template
+completed_at: ""
+project_name: ""
+summary:
+  total_commits: 0
+  features_delivered: 0
+  tests_written: 0
+  deployment_url: ""
+phases:
+  - name: "Business Analysis"
+    duration: ""
+  - name: "Development"
+    duration: ""
+  - name: "Code Review"
+    duration: ""
+  - name: "Testing"
+    duration: ""
+  - name: "Deployment"
+    duration: ""
