@@ -1,0 +1,13 @@
+# Deployment Config Template
+deployment:
+  target: ""
+  platform: ""
+  environment_variables: []
+  pre_deploy_commands: []
+  post_deploy_commands: []
+verification:
+  health_check: null
+  smoke_test: null
+rollback_info:
+  previous_version: ""
+  rollback_command: ""
