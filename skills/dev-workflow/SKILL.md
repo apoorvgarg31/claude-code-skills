@@ -139,3 +139,11 @@ history:
 | Code Review | Code changes | review-notes.yaml | /test or /developer |
 | Test | Code | test-results.yaml | /devops or /developer |
 | DevOps | Tested code | Deployed app | Complete |
+
+## Metrics Tracked
+
+- Total commits
+- Review iterations
+- Test pass rate
+- Phase durations
+- Total workflow time
