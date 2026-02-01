@@ -217,3 +217,8 @@ flyctl deploy
 - Set up uptime monitoring
 - Create alert channels
 - Document runbook
+
+## Pro Tips
+- Always have rollback
+- Test in staging first
+- Monitor after deploy
