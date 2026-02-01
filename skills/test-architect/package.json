@@ -1,0 +1,41 @@
+{
+  "name": "@apoorvgarg-31/test-architect",
+  "version": "1.0.0",
+  "description": "Claude Code skill for generating comprehensive tests via interactive Q&A",
+  "keywords": [
+    "claude-code",
+    "skill",
+    "testing",
+    "test-generation",
+    "jest",
+    "pytest",
+    "vitest",
+    "unit-tests",
+    "tdd"
+  ],
+  "author": "Apoorv Garg",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apoorvgarg31/claude-code-skills"
+  },
+  "files": [
+    "SKILL.md",
+    "README.md",
+    "scripts/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "generate": "npx ts-node scripts/generate.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "@types/node": "^20.0.0"
+  },
+  "claude-skill": {
+    "name": "test-architect",
+    "invocation": "/test-architect",
+    "tools": ["Read", "Glob", "Grep", "AskUserQuestion", "Write", "Edit"]
+  }
+}
