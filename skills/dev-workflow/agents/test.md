@@ -185,3 +185,13 @@ def test_full_flow(client):
     response = client.post('/api/users', json={...})
     assert response.status_code == 201
 ```
+
+## Coverage Targets
+- Minimum: 70%
+- Good: 80%
+- Excellent: 90%+
+
+Focus on:
+- Critical business logic
+- Error handling paths
+- Edge cases
