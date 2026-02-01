@@ -1,0 +1,15 @@
+# Deployment Results Template
+deployed_at: ""
+status: pending
+deployment:
+  platform: ""
+  url: ""
+  version: ""
+  commit: ""
+verification:
+  health_check: null
+  smoke_test: null
+  errors_detected: false
+rollback_info:
+  previous_version: ""
+  command: ""
