@@ -76,23 +76,39 @@ phases:
 history: []
 ```
 
-## Step 2: Business Analyst Phase (YOU handle this)
+## Step 4: Business Analyst Phase (YOU handle this)
 
-You ALWAYS handle BA. Ask discovery questions:
+**Read `skills/orchestrator/ba-phase.md` for detailed instructions.**
 
-1. **Project Overview**
-   - What problem does it solve?
-   - Who are the target users?
+This is a thorough, interactive process:
 
-2. **Features**
-   - What are the must-have features (MVP)?
-   - What's out of scope?
+### 4a. Initial Discovery
+Ask: "What are you trying to achieve? Describe in as much detail as you can."
 
-3. **Technical**
-   - Tech stack preferences?
-   - Any constraints?
+### 4b. Codebase Analysis
+Analyze existing code for patterns, frameworks, conventions:
+```bash
+find . -type f \( -name "*.py" -o -name "*.ts" -o -name "*.js" \) | head -30
+cat package.json 2>/dev/null || cat pyproject.toml 2>/dev/null
+ls -la src/ lib/ app/ 2>/dev/null
+```
 
-Create `./state/<project-name>/tech-spec.yaml` with comprehensive spec.
+### 4c. Clarifying Questions
+Based on codebase + user description, ask specific clarifying questions.
+
+### 4d. Iterate
+- User answers → analyze more if needed
+- Propose ideas/options
+- Get feedback
+- Repeat until user is satisfied
+
+### 4e. Lock Tech Spec
+Only when user explicitly approves:
+```
+Are you happy with this direction? Ready to lock the tech spec?
+```
+
+Then create `./state/<project-name>/tech-spec.yaml`
 
 Update workflow.yaml:
 ```yaml

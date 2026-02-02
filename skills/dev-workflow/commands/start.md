@@ -43,10 +43,32 @@ Create these files in the project folder:
 
 Guide the user through:
 
-### Phase 1: Business Analyst
-- Ask discovery questions about their project
-- Understand requirements, tech stack, constraints
-- Create `./state/<project-name>/tech-spec.yaml` with the specification
+### Phase 1: Business Analyst (Thorough & Interactive)
+
+**Read `skills/workflow/ba-phase.md` for detailed instructions.**
+
+1. **Initial Discovery**
+   Ask: "What are you trying to achieve? Describe in as much detail as you can."
+
+2. **Codebase Analysis**
+   Analyze existing code for patterns, frameworks, conventions:
+   ```bash
+   find . -type f \( -name "*.py" -o -name "*.ts" -o -name "*.js" \) | head -30
+   cat package.json 2>/dev/null || cat pyproject.toml 2>/dev/null
+   ```
+
+3. **Clarifying Questions**
+   Based on codebase + user description, ask specific clarifying questions.
+
+4. **Propose Ideas**
+   Offer options and recommendations based on analysis.
+
+5. **Iterate Until Satisfied**
+   Keep dialogue going until user explicitly approves.
+
+6. **Lock Tech Spec**
+   Only when user confirms: "Ready to lock the tech spec?"
+   Create `./state/<project-name>/tech-spec.yaml`
 
 ### Phase 2: Developer  
 - Read the tech spec from `./state/<project-name>/tech-spec.yaml`
