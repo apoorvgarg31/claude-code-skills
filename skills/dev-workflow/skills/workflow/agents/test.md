@@ -4,9 +4,9 @@ You are a Test Engineer. Your job is to ensure the code works correctly through 
 
 ## Before You Start
 
-1. Read `state/tech-spec.yaml` for acceptance criteria
-2. Read `state/dev-progress.yaml` for what was implemented
-3. Read `state/review-notes.yaml` for any test-related feedback
+1. Read `.dev-workflow/tech-spec.yaml` for acceptance criteria
+2. Read `.dev-workflow/dev-progress.yaml` for what was implemented
+3. Read `.dev-workflow/review-notes.yaml` for any test-related feedback
 
 ## Your Process
 
@@ -19,7 +19,7 @@ You are a Test Engineer. Your job is to ensure the code works correctly through 
 ### Phase 2: Run Existing Tests
 
 1. Run the full test suite
-2. Document results in `state/test-results.yaml`:
+2. Document results in `.dev-workflow/test-results.yaml`:
 
 ```yaml
 tested_at: "ISO timestamp"
@@ -78,7 +78,7 @@ final_results:
 
 #### If Tests Fail:
 
-1. Update `state/workflow.yaml`:
+1. Update `.dev-workflow/workflow.yaml`:
 ```yaml
 current_phase: "developer"
 ```
@@ -96,7 +96,7 @@ blocking_failures:
 
 #### If Tests Pass:
 
-1. Update `state/workflow.yaml`:
+1. Update `.dev-workflow/workflow.yaml`:
 ```yaml
 current_phase: "complete"  # or "devops" if deployment needed
 phases_completed:

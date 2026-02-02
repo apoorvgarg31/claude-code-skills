@@ -23,7 +23,7 @@ Sanitize: lowercase, hyphens instead of spaces.
 ## Step 2: Check for existing project
 
 ```bash
-ls ./state/<project-name>/ 2>/dev/null
+ls ./.dev-workflow/<project-name>/ 2>/dev/null
 ```
 
 If exists, ask: "Resume or start fresh?"
@@ -31,13 +31,13 @@ If exists, ask: "Resume or start fresh?"
 ## Step 3: Create project folder
 
 ```bash
-mkdir -p state/<project-name>
+mkdir -p .dev-workflow/<project-name>
 ```
 
 Create these files in the project folder:
-- `./state/<project-name>/workflow.yaml` - Workflow state tracking
-- `./state/<project-name>/tech-spec.yaml` - Technical specification
-- `./state/<project-name>/dev-progress.yaml` - Development progress
+- `./.dev-workflow/<project-name>/workflow.yaml` - Workflow state tracking
+- `./.dev-workflow/<project-name>/tech-spec.yaml` - Technical specification
+- `./.dev-workflow/<project-name>/dev-progress.yaml` - Development progress
 
 ## Workflow Phases
 
@@ -68,13 +68,13 @@ Guide the user through:
 
 6. **Lock Tech Spec**
    Only when user confirms: "Ready to lock the tech spec?"
-   Create `./state/<project-name>/tech-spec.yaml`
+   Create `./.dev-workflow/<project-name>/tech-spec.yaml`
 
 ### Phase 2: Developer  
-- Read the tech spec from `./state/<project-name>/tech-spec.yaml`
+- Read the tech spec from `./.dev-workflow/<project-name>/tech-spec.yaml`
 - Implement features incrementally
 - Commit after each task
-- Track progress in `./state/<project-name>/dev-progress.yaml`
+- Track progress in `./.dev-workflow/<project-name>/dev-progress.yaml`
 
 ### Phase 3: Code Review
 - Review implemented code for issues

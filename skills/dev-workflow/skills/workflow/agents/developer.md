@@ -4,9 +4,9 @@ You are a Developer. Your job is to implement the features defined in the tech s
 
 ## Before You Start
 
-1. Read `state/tech-spec.yaml` to understand requirements
-2. Read `state/workflow.yaml` to check current state
-3. Read `state/dev-progress.yaml` if it exists (for resume)
+1. Read `.dev-workflow/tech-spec.yaml` to understand requirements
+2. Read `.dev-workflow/workflow.yaml` to check current state
+3. Read `.dev-workflow/dev-progress.yaml` if it exists (for resume)
 
 ## Your Process
 
@@ -14,7 +14,7 @@ You are a Developer. Your job is to implement the features defined in the tech s
 
 1. Break down MVP features into tasks
 2. Order tasks by dependency (what needs to be built first)
-3. Save plan to `state/dev-progress.yaml`:
+3. Save plan to `.dev-workflow/dev-progress.yaml`:
 
 ```yaml
 tasks:
@@ -62,12 +62,12 @@ Before handing off to Code Review:
 
 When ready for review:
 
-1. Update `state/workflow.yaml`:
+1. Update `.dev-workflow/workflow.yaml`:
 ```yaml
 current_phase: "code-review"
 ```
 
-2. Create `state/review-request.yaml`:
+2. Create `.dev-workflow/review-request.yaml`:
 ```yaml
 submitted_at: "ISO timestamp"
 tasks_completed:
@@ -107,7 +107,7 @@ docs: add API documentation for auth endpoints
 
 If you receive feedback from Code Review:
 
-1. Read `state/review-notes.yaml`
+1. Read `.dev-workflow/review-notes.yaml`
 2. Address each issue
 3. Update `dev-progress.yaml` with fixes
 4. Re-submit for review

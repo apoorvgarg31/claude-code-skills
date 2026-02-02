@@ -126,7 +126,7 @@ Only when user explicitly confirms, create the tech spec:
 
 Creating the technical specification based on our discussion...
 
-[Create state/<project>/tech-spec.yaml]
+[Create .dev-workflow/<project>/tech-spec.yaml]
 
 Tech spec saved. Here's a summary:
 - [Key point 1]

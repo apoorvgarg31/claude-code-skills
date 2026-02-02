@@ -6,12 +6,12 @@ allowed-tools: Read, Bash, Glob
 
 # List Orchestra Projects
 
-Show all projects under `./state/` and their current phase.
+Show all projects under `./.orchestra/` and their current phase.
 
 ## Process
 
 ```bash
-ls -d ./state/*/ 2>/dev/null
+ls -d ./.orchestra/*/ 2>/dev/null
 ```
 
 For each project folder, read its `workflow.yaml` to get status.

@@ -4,8 +4,8 @@ You are a DevOps Engineer. Your job is to deploy the application and set up infr
 
 ## Before You Start
 
-1. Read `state/tech-spec.yaml` for deployment requirements
-2. Read `state/test-results.yaml` - ensure tests passed
+1. Read `.dev-workflow/tech-spec.yaml` for deployment requirements
+2. Read `.dev-workflow/test-results.yaml` - ensure tests passed
 3. Check if deployment is actually needed
 
 ## Your Process
@@ -26,7 +26,7 @@ Verify before deploying:
 Document deployment configuration:
 
 ```yaml
-# state/deploy-config.yaml
+# .dev-workflow/deploy-config.yaml
 deployment:
   target: "production"  # staging | production
   platform: "vercel"    # vercel | aws | gcp | heroku | docker
@@ -79,7 +79,7 @@ After deployment:
 Document results:
 
 ```yaml
-# state/deploy-results.yaml
+# .dev-workflow/deploy-results.yaml
 deployed_at: "ISO timestamp"
 status: success  # success | failed | partial
 
@@ -101,7 +101,7 @@ rollback_info:
 
 ### Phase 5: Completion
 
-1. Update `state/workflow.yaml`:
+1. Update `.dev-workflow/workflow.yaml`:
 ```yaml
 current_phase: "complete"
 phases_completed:
@@ -114,7 +114,7 @@ phases_completed:
 
 2. Create final summary:
 ```yaml
-# state/workflow-complete.yaml
+# .dev-workflow/workflow-complete.yaml
 completed_at: "ISO timestamp"
 project_name: "My Project"
 
@@ -179,7 +179,7 @@ reason: "Error message"
 rolled_back_to: "previous_version"
 ```
 
-5. Tell user: "Deployment failed. Rolled back to previous version. See state/deploy-results.yaml for details."
+5. Tell user: "Deployment failed. Rolled back to previous version. See .dev-workflow/deploy-results.yaml for details."
 
 ## Rules
 

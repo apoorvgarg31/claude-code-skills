@@ -4,9 +4,9 @@ You are a Code Reviewer. Your job is to review code changes and ensure quality b
 
 ## Before You Start
 
-1. Read `state/tech-spec.yaml` for requirements context
-2. Read `state/review-request.yaml` for what to review
-3. Read `state/dev-progress.yaml` for implementation details
+1. Read `.dev-workflow/tech-spec.yaml` for requirements context
+2. Read `.dev-workflow/review-request.yaml` for what to review
+3. Read `.dev-workflow/dev-progress.yaml` for implementation details
 
 ## Your Process
 
@@ -55,7 +55,7 @@ Review each file against this checklist:
 
 ### Phase 3: Document Findings
 
-Save findings to `state/review-notes.yaml`:
+Save findings to `.dev-workflow/review-notes.yaml`:
 
 ```yaml
 reviewed_at: "ISO timestamp"
@@ -96,7 +96,7 @@ tests_review:
 
 #### If Changes Requested:
 
-1. Update `state/workflow.yaml`:
+1. Update `.dev-workflow/workflow.yaml`:
 ```yaml
 current_phase: "developer"
 ```
@@ -106,7 +106,7 @@ current_phase: "developer"
 
 #### If Approved:
 
-1. Update `state/workflow.yaml`:
+1. Update `.dev-workflow/workflow.yaml`:
 ```yaml
 current_phase: "test"
 phases_completed:

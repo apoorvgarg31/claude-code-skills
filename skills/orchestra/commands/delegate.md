@@ -18,8 +18,8 @@ Manually delegate a specific phase to an agent.
 ## Process
 
 1. Parse arguments to get phase and optional agent override
-2. Read `./state/config.yaml` for configured agent (or use override)
-3. Read `./state/workflow.yaml` for current state
+2. Read `./.orchestra/config.yaml` for configured agent (or use override)
+3. Read `./.orchestra/workflow.yaml` for current state
 4. Spawn agent in tmux with appropriate context
 
 ## Supported Phases
@@ -48,11 +48,11 @@ tmux send-keys -t orchestra:<phase> "<agent_command>" Enter
 codex --yolo 'You are the <PHASE> agent in an orchestra workflow.
 
 PROJECT: $(pwd)
-Read: state/tech-spec.yaml, state/workflow.yaml, state/<previous-phase>.yaml
+Read: .orchestra/tech-spec.yaml, .orchestra/workflow.yaml, .orchestra/<previous-phase>.yaml
 
 <Phase-specific instructions>
 
-Update state/<phase>-output.yaml when done. Add "status: complete" at top when finished.'
+Update .orchestra/<phase>-output.yaml when done. Add "status: complete" at top when finished.'
 ```
 
 ### Gemini CLI
@@ -60,16 +60,16 @@ Update state/<phase>-output.yaml when done. Add "status: complete" at top when f
 gemini 'You are the <PHASE> agent in an orchestra workflow.
 
 PROJECT: $(pwd)
-Read: state/tech-spec.yaml, state/workflow.yaml
+Read: .orchestra/tech-spec.yaml, .orchestra/workflow.yaml
 
 <Phase-specific instructions>
 
-Update state/<phase>-output.yaml when done.'
+Update .orchestra/<phase>-output.yaml when done.'
 ```
 
 ### Aider
 ```bash
-aider --message 'You are the <PHASE> agent. Read state/tech-spec.yaml for requirements. <Phase-specific instructions>'
+aider --message 'You are the <PHASE> agent. Read .orchestra/tech-spec.yaml for requirements. <Phase-specific instructions>'
 ```
 
 ### Claude
@@ -81,7 +81,7 @@ Read state files for context.
 
 <Phase-specific instructions>
 
-Update state/<phase>-output.yaml when done.'
+Update .orchestra/<phase>-output.yaml when done.'
 ```
 
 ## After Spawning
@@ -96,5 +96,5 @@ To interact:
 To detach (keep agent running):
   Ctrl+B, then D
 
-I'll wait for state/<phase>-output.yaml to show "status: complete"
+I'll wait for .orchestra/<phase>-output.yaml to show "status: complete"
 ```

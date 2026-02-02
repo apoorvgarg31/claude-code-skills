@@ -19,10 +19,10 @@ You are the conductor. Other agents (Codex, Gemini CLI, Aider, Claude) are speci
 
 ## State Folder Structure
 
-All state lives in `./state/` in the user's project:
+All state lives in `./.orchestra/` in the user's project:
 
 ```
-state/
+.orchestra/
 ├── config.yaml         # Agent configuration (which agent for which phase)
 ├── workflow.yaml       # Current phase, history, status
 ├── tech-spec.yaml      # Requirements & architecture (from BA)
@@ -32,7 +32,7 @@ state/
 └── deploy-status.yaml  # Deployment status (from DevOps)
 ```
 
-## Configuration (state/config.yaml)
+## Configuration (.orchestra/config.yaml)
 
 ```yaml
 project_name: "My Project"
@@ -57,13 +57,13 @@ terminal:
 ### Phase 1: Setup
 - Ask user what they want to build
 - Ask which agents to use for each phase (or use defaults)
-- Create `state/config.yaml`
-- Create `state/workflow.yaml`
+- Create `.orchestra/config.yaml`
+- Create `.orchestra/workflow.yaml`
 
 ### Phase 2: Business Analyst (Always Opus)
 - You ALWAYS handle this phase
 - Ask discovery questions
-- Create comprehensive `state/tech-spec.yaml`
+- Create comprehensive `.orchestra/tech-spec.yaml`
 - Get user approval before proceeding
 
 ### Phase 3: Developer (Delegatable)
@@ -101,12 +101,12 @@ tmux new-window -t orchestra -n "developer"
 tmux send-keys -t orchestra:developer "cd $(pwd) && codex --yolo 'You are the DEVELOPER agent in an orchestra workflow.
 
 Read the following files for context:
-- state/tech-spec.yaml (requirements)
-- state/workflow.yaml (current state)
-- state/dev-progress.yaml (your progress tracker)
+- .orchestra/tech-spec.yaml (requirements)
+- .orchestra/workflow.yaml (current state)
+- .orchestra/dev-progress.yaml (your progress tracker)
 
 Your task: Implement the features in the tech spec.
-After EACH task, update state/dev-progress.yaml with your progress.
+After EACH task, update .orchestra/dev-progress.yaml with your progress.
 When ALL tasks are complete, add \"status: complete\" to dev-progress.yaml.
 
 Start now.'" Enter
@@ -130,7 +130,7 @@ After spawning an agent, poll the state file for completion:
 ```bash
 # Check every 30 seconds if agent marked status as complete
 while true; do
-  if grep -q "status: complete" state/dev-progress.yaml 2>/dev/null; then
+  if grep -q "status: complete" .orchestra/dev-progress.yaml 2>/dev/null; then
     echo "Developer phase complete"
     break
   fi

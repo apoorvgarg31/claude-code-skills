@@ -15,9 +15,9 @@ Multi-agent orchestration for Claude Code. Opus 4.5 orchestrates while delegatin
          ▼
 ┌─────────────────────────────────────────────────────────┐
 │  DEVELOPER TERMINAL (Codex / Gemini / Aider / Claude)   │
-│  • Receives context from state/                          │
+│  • Receives context from .orchestra/                          │
 │  • User interacts here for coding                        │
-│  • Updates state/ when done                              │
+│  • Updates .orchestra/ when done                              │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -56,7 +56,7 @@ This walks you through choosing agents for each phase.
 During setup, you choose which agent handles each phase:
 
 ```yaml
-# state/config.yaml
+# .orchestra/config.yaml
 agents:
   business-analyst: opus      # Always Opus
   developer: codex            # Codex for coding
@@ -85,7 +85,7 @@ agents:
 5. **Test**: Spawns test agent, runs/creates tests
 6. **DevOps**: Spawns deploy agent (optional)
 
-State files in `./state/` serve as the communication layer between agents.
+State files in `./.orchestra/` serve as the communication layer between agents.
 
 ## License
 

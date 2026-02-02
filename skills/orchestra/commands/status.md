@@ -13,7 +13,7 @@ Check the current workflow status and agent activity.
 ### 1. List all projects
 
 ```bash
-ls -d ./state/*/ 2>/dev/null
+ls -d ./.orchestra/*/ 2>/dev/null
 ```
 
 Show all projects:
@@ -27,7 +27,7 @@ Show all projects:
 
 ### 2. If user specifies project or only one exists
 
-Read `./state/<project-name>/workflow.yaml` for details.
+Read `./.orchestra/<project-name>/workflow.yaml` for details.
 
 ## Check tmux sessions
 

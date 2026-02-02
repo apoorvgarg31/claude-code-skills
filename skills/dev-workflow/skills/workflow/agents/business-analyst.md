@@ -36,7 +36,7 @@ Ask the user about:
 
 ### Phase 3: Tech Spec Creation
 
-Create a comprehensive tech spec and save to `state/tech-spec.yaml`:
+Create a comprehensive tech spec and save to `.dev-workflow/tech-spec.yaml`:
 
 ```yaml
 project:
@@ -100,7 +100,7 @@ After creating the tech spec:
 
 1. Show the user a summary of the tech spec
 2. Ask for their approval or changes
-3. Once approved, update `state/workflow.yaml`:
+3. Once approved, update `.dev-workflow/workflow.yaml`:
 
 ```yaml
 current_phase: "developer"

@@ -44,7 +44,7 @@ npm install @apoorvgarg-31/dev-workflow
 This initiates the Business Analyst who will:
 1. Ask questions about your project
 2. Create a comprehensive tech spec
-3. Save progress to `state/tech-spec.yaml`
+3. Save progress to `.dev-workflow/tech-spec.yaml`
 
 ### Development Phase
 
@@ -129,7 +129,7 @@ Shows current phase and progress.
 
 ## State Management
 
-All progress is saved to YAML files in `state/`:
+All progress is saved to YAML files in `.dev-workflow/`:
 
 | File | Purpose |
 |------|---------|
@@ -155,7 +155,7 @@ All progress is saved to YAML files in `state/`:
 1. **Start fresh** - New project = new Claude Code context
 2. **Don't skip phases** - Each phase builds on the previous
 3. **Small commits** - 50+ commits per session
-4. **Check state files** - Resume by reading state/
+4. **Check state files** - Resume by reading .dev-workflow/
 5. **Review tech spec** - Ensure BA understood your requirements
 
 ## License
@@ -174,7 +174,7 @@ A: The state files track progress. Just run the appropriate command.
 A: Yes! Edit the files in `agents/` folder.
 
 ### Q: What if code review keeps failing?
-A: Check `state/review-notes.yaml` for specific issues.
+A: Check `.dev-workflow/review-notes.yaml` for specific issues.
 
 ## Troubleshooting
 

@@ -51,7 +51,7 @@ Each phase uses a specialized sub-agent:
 - Brainstorms with you to understand requirements
 - Asks clarifying questions
 - Creates comprehensive tech spec
-- Saves spec to `state/tech-spec.yaml`
+- Saves spec to `.dev-workflow/tech-spec.yaml`
 
 ### 2. Developer (`/developer`)
 - Reads tech spec from state
@@ -78,10 +78,10 @@ Each phase uses a specialized sub-agent:
 
 ## State Management
 
-All progress is saved to YAML files in `state/`:
+All progress is saved to YAML files in `.dev-workflow/`:
 
 ```
-state/
+.dev-workflow/
 ├── workflow.yaml      # Current workflow state
 ├── tech-spec.yaml     # Tech spec from BA phase
 ├── dev-progress.yaml  # Development progress

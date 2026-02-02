@@ -68,17 +68,27 @@ Requires: `pip install pymupdf openpyxl`
 
 ## Project-Based State
 
-Both `orchestra` and `dev-workflow` use project-based state folders:
+Each skill uses its own hidden folder for state:
 
+**Orchestra:** `.orchestra/`
 ```
-state/
+.orchestra/
 ├── todo-api/
 │   ├── config.yaml
 │   ├── tech-spec.yaml
 │   ├── workflow.yaml
 │   └── dev-progress.yaml
-├── hello-cli/
-│   └── ...
+└── another-project/
+    └── ...
+```
+
+**Dev Workflow:** `.dev-workflow/`
+```
+.dev-workflow/
+├── todo-api/
+│   ├── tech-spec.yaml
+│   ├── workflow.yaml
+│   └── dev-progress.yaml
 └── another-project/
     └── ...
 ```
