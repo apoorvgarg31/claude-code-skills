@@ -1,7 +1,7 @@
 {
   "name": "orchestra",
-  "description": "Multi-agent orchestration workflow - delegate phases to different AI agents (Codex, Gemini CLI, Aider, Claude) in separate terminals",
-  "version": "1.0.0",
+  "description": "Multi-agent orchestration workflow - delegate phases to different AI agents (Codex, Gemini CLI, Aider, Droid, Claude) in separate terminals",
+  "version": "1.1.0",
   "author": {
     "name": "Apoorv Garg"
   }
