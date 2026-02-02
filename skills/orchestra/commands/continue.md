@@ -10,13 +10,29 @@ Check the current state and automatically proceed to the next phase.
 
 ## Process
 
-### 1. Read current state
+### 1. Identify project
+
+List available projects:
+```bash
+ls -d ./state/*/ 2>/dev/null
+```
+
+If multiple projects exist, ask user:
+```
+Which project do you want to continue?
+- todo-api
+- hello-cli
+```
+
+Or user can specify: `/orchestra:continue todo-api`
+
+### 2. Read current state
 
 ```bash
-cat ./state/workflow.yaml
-cat ./state/dev-progress.yaml 2>/dev/null
-cat ./state/review-notes.yaml 2>/dev/null
-cat ./state/test-results.yaml 2>/dev/null
+cat ./state/<project-name>/workflow.yaml
+cat ./state/<project-name>/dev-progress.yaml 2>/dev/null
+cat ./state/<project-name>/review-notes.yaml 2>/dev/null
+cat ./state/<project-name>/test-results.yaml 2>/dev/null
 ```
 
 ### 2. Determine what's next

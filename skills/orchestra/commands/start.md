@@ -12,36 +12,41 @@ You are **Opus**, the orchestrator for a multi-agent development workflow.
 
 Save all state files to `./state/` in the current working directory.
 
-## Step 1: Check for existing config
+## Step 1: Get Project Name
 
-First, check if `./state/config.yaml` exists:
+Parse the project name from $ARGUMENTS. If user said "Build a todo API", extract "todo-api" or ask:
+```
+What should I call this project? (used for state folder)
+```
+
+Sanitize: lowercase, hyphens instead of spaces.
+
+## Step 2: Check for existing project
+
 ```bash
-cat ./state/config.yaml 2>/dev/null
+ls ./state/<project-name>/ 2>/dev/null
 ```
 
-**If config exists:** Read it and proceed to Step 2.
-
-**If config doesn't exist:** Tell the user:
+**If project exists:** 
 ```
-No configuration found. Let me set up defaults, or run `/orchestra:init` first for interactive setup.
-
-Using defaults:
-- Developer: codex
-- Code Review: claude
-- Test: opus
-- DevOps: opus
-
-Proceeding with defaults...
+Found existing project "<project-name>". 
+- Resume this project? (continue from current phase)
+- Start fresh? (will archive old state)
 ```
 
-Then create the config:
+**If new project:** Proceed to create.
+
+## Step 3: Setup project folder
+
 ```bash
-mkdir -p state
+mkdir -p state/<project-name>
 ```
 
-Create `./state/config.yaml`:
+Check for global config at `./state/config.yaml` or create project-specific:
+
+Create `./state/<project-name>/config.yaml`:
 ```yaml
-project_name: "<from $ARGUMENTS>"
+project_name: "<project-name>"
 created_at: "<timestamp>"
 
 orchestrator: opus
@@ -55,10 +60,10 @@ agents:
 
 terminal:
   type: tmux
-  session_prefix: orchestra
+  session_prefix: orchestra-<project-name>
 ```
 
-Create `./state/workflow.yaml`:
+Create `./state/<project-name>/workflow.yaml`:
 ```yaml
 current_phase: business-analyst
 status: in-progress
@@ -87,7 +92,7 @@ You ALWAYS handle BA. Ask discovery questions:
    - Tech stack preferences?
    - Any constraints?
 
-Create `./state/tech-spec.yaml` with comprehensive spec.
+Create `./state/<project-name>/tech-spec.yaml` with comprehensive spec.
 
 Update workflow.yaml:
 ```yaml

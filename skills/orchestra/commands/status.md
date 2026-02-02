@@ -10,9 +10,24 @@ Check the current workflow status and agent activity.
 
 ## Process
 
-1. Read `./state/workflow.yaml` for overall status
-2. Read phase-specific files for details
-3. Check tmux for running agents
+### 1. List all projects
+
+```bash
+ls -d ./state/*/ 2>/dev/null
+```
+
+Show all projects:
+```
+🎼 Orchestra Projects
+
+  todo-api      — developer (in-progress)
+  hello-cli     — complete
+  new-project   — business-analyst (in-progress)
+```
+
+### 2. If user specifies project or only one exists
+
+Read `./state/<project-name>/workflow.yaml` for details.
 
 ## Check tmux sessions
 
