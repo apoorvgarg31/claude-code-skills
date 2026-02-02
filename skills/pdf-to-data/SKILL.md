@@ -3,7 +3,7 @@ name: pdf-to-data
 description: Extract structured data from PDFs to JSON, CSV, or Excel
 argument-hint: <pdf-file> [--format json|csv|xlsx] [--output <file>]
 user-invocable: true
-allowed-tools: Read, Bash(python *)
+allowed-tools: Read, Write, Bash
 ---
 
 # PDF to Data Extractor

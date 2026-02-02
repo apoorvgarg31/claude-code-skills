@@ -1,7 +1,7 @@
 ---
 name: dev-workflow
 description: Complete development workflow with Business Analyst, Developer, Code Review, Test, and DevOps sub-agents. Start with /new-project to begin a new project workflow.
-disable-model-invocation: true
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion
 ---
 
 # Development Workflow Skill
