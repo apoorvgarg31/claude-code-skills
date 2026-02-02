@@ -1,6 +1,7 @@
 ---
 description: Check the status of the orchestra workflow and all agents
 argument-hint: 
+allowed-tools: Read, Bash, Glob
 ---
 
 # Orchestra Status

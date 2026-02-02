@@ -1,6 +1,7 @@
 ---
 description: Start a new multi-agent orchestrated project
 argument-hint: <project description>
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion
 ---
 
 # Start Orchestra Workflow

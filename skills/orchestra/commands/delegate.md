@@ -1,6 +1,7 @@
 ---
 description: Delegate a specific phase to an agent in a new terminal
 argument-hint: <phase> [agent]
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
 # Delegate Phase to Agent
