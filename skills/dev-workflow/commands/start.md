@@ -11,10 +11,33 @@ You are starting a development workflow for the user's project.
 
 **All state files MUST be saved in the USER'S CURRENT WORKING DIRECTORY, not in the plugin folder!**
 
-Create these files in the user's project root:
-- `./state/workflow.yaml` - Workflow state tracking
-- `./state/tech-spec.yaml` - Technical specification
-- `./state/dev-progress.yaml` - Development progress
+## Step 1: Get Project Name
+
+Parse from $ARGUMENTS or ask:
+```
+What should I call this project? (used for state folder, e.g., todo-api)
+```
+
+Sanitize: lowercase, hyphens instead of spaces.
+
+## Step 2: Check for existing project
+
+```bash
+ls ./state/<project-name>/ 2>/dev/null
+```
+
+If exists, ask: "Resume or start fresh?"
+
+## Step 3: Create project folder
+
+```bash
+mkdir -p state/<project-name>
+```
+
+Create these files in the project folder:
+- `./state/<project-name>/workflow.yaml` - Workflow state tracking
+- `./state/<project-name>/tech-spec.yaml` - Technical specification
+- `./state/<project-name>/dev-progress.yaml` - Development progress
 
 ## Workflow Phases
 
@@ -23,13 +46,13 @@ Guide the user through:
 ### Phase 1: Business Analyst
 - Ask discovery questions about their project
 - Understand requirements, tech stack, constraints
-- Create `./state/tech-spec.yaml` with the specification
+- Create `./state/<project-name>/tech-spec.yaml` with the specification
 
 ### Phase 2: Developer  
-- Read the tech spec from `./state/tech-spec.yaml`
+- Read the tech spec from `./state/<project-name>/tech-spec.yaml`
 - Implement features incrementally
 - Commit after each task
-- Track progress in `./state/dev-progress.yaml`
+- Track progress in `./state/<project-name>/dev-progress.yaml`
 
 ### Phase 3: Code Review
 - Review implemented code for issues

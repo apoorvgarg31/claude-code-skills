@@ -1,7 +1,7 @@
 {
   "name": "dev-workflow",
   "description": "Complete development workflow with BA, Developer, Code Review, Test agents",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "Apoorv Garg"
   }
