@@ -1,0 +1,8 @@
+{
+  "name": "pdf-to-data",
+  "description": "Extract structured data from PDFs to JSON, CSV, or Excel",
+  "version": "1.0.0",
+  "author": {
+    "name": "Apoorv Garg"
+  }
+}

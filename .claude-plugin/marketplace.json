@@ -1,0 +1,37 @@
+{
+  "name": "apoorv-skills",
+  "owner": {
+    "name": "Apoorv Garg",
+    "email": "apoorvgarg31@gmail.com"
+  },
+  "metadata": {
+    "description": "Collection of Claude Code skills for dev workflows",
+    "version": "1.1.0"
+  },
+  "plugins": [
+    {
+      "name": "dev-workflow",
+      "source": "./skills/dev-workflow",
+      "description": "Complete development workflow with BA, Developer, Code Review, Test agents",
+      "version": "1.1.0",
+      "category": "development",
+      "tags": ["workflow", "ba", "developer", "code-review", "testing"]
+    },
+    {
+      "name": "test-architect",
+      "source": "./skills/test-architect",
+      "description": "Generate comprehensive tests via interactive Q&A conversation",
+      "version": "1.0.0",
+      "category": "testing",
+      "tags": ["testing", "qa", "test-generation"]
+    },
+    {
+      "name": "pdf-to-data",
+      "source": "./skills/pdf-to-data",
+      "description": "Extract structured data from PDFs to JSON, CSV, or Excel",
+      "version": "1.0.0",
+      "category": "data",
+      "tags": ["pdf", "extraction", "data"]
+    }
+  ]
+}
