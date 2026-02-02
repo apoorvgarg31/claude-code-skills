@@ -6,9 +6,17 @@
   },
   "metadata": {
     "description": "Collection of Claude Code skills for dev workflows",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
+    {
+      "name": "orchestra",
+      "source": "./skills/orchestra",
+      "description": "Multi-agent orchestration - delegate phases to Codex, Gemini CLI, Aider in separate terminals",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": ["multi-agent", "orchestration", "codex", "gemini", "aider", "workflow"]
+    },
     {
       "name": "dev-workflow",
       "source": "./skills/dev-workflow",
