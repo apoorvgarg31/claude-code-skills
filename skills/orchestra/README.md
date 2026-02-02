@@ -30,17 +30,23 @@ claude plugin install orchestra@apoorv-skills
 
 ## Usage
 
-### Start a new project
+### 1. Configure your workflow (interactive)
+```
+/orchestra:init
+```
+This walks you through choosing agents for each phase.
+
+### 2. Start a new project
 ```
 /orchestra:start Build a REST API for todo management
 ```
 
-### Check status
+### 3. Check status
 ```
 /orchestra:status
 ```
 
-### Manually delegate a phase
+### 4. Manually delegate a phase
 ```
 /orchestra:delegate developer codex
 ```
@@ -68,6 +74,7 @@ agents:
 | `claude` | `claude` | Thorough review |
 | `gemini` | `gemini` | Alternative coding |
 | `aider` | `aider --message` | Git-integrated coding |
+| `droid` | `droid` | Autonomous coding |
 
 ## How It Works
 

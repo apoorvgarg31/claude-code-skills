@@ -117,9 +117,10 @@ Start now.'" Enter
 | Agent | Command |
 |-------|---------|
 | codex | `codex --yolo '<prompt>'` |
+| claude | `claude '<prompt>'` |
 | gemini | `gemini '<prompt>'` |
 | aider | `aider --message '<prompt>'` |
-| claude | `claude '<prompt>'` |
+| droid | `droid '<prompt>'` |
 | opus | Handle directly (no spawn) |
 
 ## Detecting Completion

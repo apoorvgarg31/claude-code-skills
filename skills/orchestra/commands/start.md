@@ -12,43 +12,46 @@ You are **Opus**, the orchestrator for a multi-agent development workflow.
 
 Save all state files to `./state/` in the current working directory.
 
-## Step 1: Setup
+## Step 1: Check for existing config
 
-First, create the state directory and config:
+First, check if `./state/config.yaml` exists:
+```bash
+cat ./state/config.yaml 2>/dev/null
+```
 
+**If config exists:** Read it and proceed to Step 2.
+
+**If config doesn't exist:** Tell the user:
+```
+No configuration found. Let me set up defaults, or run `/orchestra:init` first for interactive setup.
+
+Using defaults:
+- Developer: codex
+- Code Review: claude
+- Test: opus
+- DevOps: opus
+
+Proceeding with defaults...
+```
+
+Then create the config:
 ```bash
 mkdir -p state
 ```
 
-Ask the user:
-1. "What would you like to build?" (they may have provided: $ARGUMENTS)
-2. "Which agents should handle each phase?"
-
-Show them options:
-```
-Available agents: codex, gemini, aider, claude, opus
-
-Default configuration:
-- Business Analyst: opus (always)
-- Developer: codex
-- Code Review: claude  
-- Test: opus
-- DevOps: opus
-
-Would you like to customize, or use defaults?
-```
-
 Create `./state/config.yaml`:
 ```yaml
-project_name: "<from user>"
+project_name: "<from $ARGUMENTS>"
 created_at: "<timestamp>"
+
+orchestrator: opus
 
 agents:
   business-analyst: opus
-  developer: codex      # or user's choice
-  code-review: claude   # or user's choice
-  test: opus           # or user's choice
-  devops: opus         # or user's choice
+  developer: codex
+  code-review: claude
+  test: opus
+  devops: opus
 
 terminal:
   type: tmux
