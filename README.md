@@ -1,66 +1,95 @@
 # Claude Code Skills
 
-A collection of reusable skills for Claude Code. Each skill provides specialized capabilities for common development tasks.
+A collection of powerful skills for Claude Code. Extend your AI coding workflow with multi-agent orchestration, dev workflows, test generation, and data extraction.
 
 ## Installation
 
-Add the marketplace to Claude Code:
-
 ```bash
+# Add the marketplace
 claude plugin marketplace add apoorvgarg31/claude-code-skills
-```
 
-Then install the skills you want:
-
-```bash
+# Install skills you want
+claude plugin install orchestra@apoorv-skills
 claude plugin install dev-workflow@apoorv-skills
 claude plugin install test-architect@apoorv-skills
 claude plugin install pdf-to-data@apoorv-skills
 ```
 
-## Available Skills
+## Skills
 
-| Skill | Command | Description |
-|-------|---------|-------------|
-| dev-workflow | `/dev-workflow:start` | Complete development workflow with BA, Developer, Code Review, Test agents |
-| test-architect | `/test-architect:generate` | Generate comprehensive tests via interactive Q&A |
-| pdf-to-data | `/pdf-to-data:extract` | Extract structured data from PDFs to JSON/CSV/Excel |
+### 🎼 Orchestra (Multi-Agent Orchestration)
 
-## Usage
-
-### dev-workflow
-
-Complete development workflow from requirements to tested code:
+Opus (Claude Code) orchestrates while delegating work to specialized AI agents (Codex, Gemini CLI, Aider, Droid) running in separate tmux terminals.
 
 ```
-/dev-workflow:start Build a CLI todo app in Python
+/orchestra:init              # Interactive setup - choose agents for each phase
+/orchestra:start <project>   # Start new project, BA creates tech spec
+/orchestra:continue <project># Continue to next phase after agent completes
+/orchestra:status <project>  # Check project status
+/orchestra:projects          # List all projects
 ```
 
-Creates `./state/` folder in your project with:
-- `tech-spec.yaml` - Requirements and architecture
-- `workflow.yaml` - Progress tracking
-- `dev-progress.yaml` - Task completion status
+**Supported Agents:** `codex`, `claude`, `gemini`, `aider`, `droid`, `opus`
 
-### test-architect
-
-Generate tests through an interactive conversation:
-
+**Flow:**
 ```
-/test-architect:generate src/utils/parser.ts --framework pytest
+1. /orchestra:init           → Configure which agent for each phase
+2. /orchestra:start todo-api → BA creates spec, spawns developer (e.g., codex)
+3. [User works with codex in tmux]
+4. /orchestra:continue       → Detects done, spawns code reviewer
+5. [Repeat until complete]
 ```
 
-### pdf-to-data
+### 🔧 Dev Workflow
 
-Extract text, tables, and form data from PDFs:
+Complete single-agent development workflow with BA, Developer, Code Review, and Test phases.
+
+```
+/dev-workflow:start <project>  # Start new project workflow
+```
+
+### 🧪 Test Architect
+
+Generate comprehensive tests via interactive Q&A conversation.
+
+```
+/test-architect:generate src/utils.py --framework pytest
+```
+
+### 📄 PDF to Data
+
+Extract structured data from PDFs to JSON, CSV, or Excel.
 
 ```
 /pdf-to-data:extract invoice.pdf --format json
 ```
 
-For pdf-to-data, install Python dependencies:
-```bash
-pip install pymupdf openpyxl
+Requires: `pip install pymupdf openpyxl`
+
+## Project-Based State
+
+Both `orchestra` and `dev-workflow` use project-based state folders:
+
 ```
+state/
+├── todo-api/
+│   ├── config.yaml
+│   ├── tech-spec.yaml
+│   ├── workflow.yaml
+│   └── dev-progress.yaml
+├── hello-cli/
+│   └── ...
+└── another-project/
+    └── ...
+```
+
+Run multiple projects without overwriting state!
+
+## Requirements
+
+- Claude Code v1.0.33+
+- tmux (for orchestra multi-agent)
+- Target agents installed (codex, gemini, aider, droid) as needed
 
 ## License
 
