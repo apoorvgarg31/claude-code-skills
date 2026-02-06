@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Collection of Claude Code skills for dev workflows",
-    "version": "1.3.0"
+    "version": "1.4.0"
   },
   "plugins": [
     {
@@ -40,6 +40,14 @@
       "version": "1.0.0",
       "category": "data",
       "tags": ["pdf", "extraction", "data"]
+    },
+    {
+      "name": "payapp-auditor",
+      "source": "./skills/payapp-auditor",
+      "description": "Audit construction payment applications for compliance issues — document classification, data extraction, and 13 audit checks",
+      "version": "1.0.0",
+      "category": "data",
+      "tags": ["construction", "audit", "payapp", "payment-application", "compliance", "pdf", "excel"]
     }
   ]
 }
