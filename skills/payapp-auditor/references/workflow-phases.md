@@ -1,5 +1,11 @@
 # Workflow Phases — Detailed Instructions
 
+## Key Principle: ASK, DON'T ASSUME
+
+Between every phase, **stop and ask the user to confirm** before proceeding. Never silently move to the next phase. Present what you found, ask for confirmation/corrections, then proceed.
+
+---
+
 ## Phase 0: INIT (`/payapp:start`)
 
 1. Ask for project name (e.g., "DTC PA07")
@@ -16,6 +22,8 @@
    ```
 9. Confirm setup to user, show page count, begin scanning
 
+---
+
 ## Phase 1: SCAN
 
 **Goal:** Build a scratchpad understanding of the entire PDF.
@@ -23,12 +31,12 @@
 1. Read page images in batches of 5 using the Read tool
 2. After each batch, update `.payapp-audit/<project>/scratchpad.yaml`:
    ```yaml
-   scanned_through: 10  # last page scanned
+   scanned_through: 10
    notes:
      - pages: [1, 5]
        summary: |
          Page 1: Cover sheet - "DTC Vertical Expansion PA07"
-         Page 2: G7-03 Application for Payment
+         Page 2: G702 Application for Payment
          Page 3-5: Schedule of Values, ~51 line items
      - pages: [6, 10]
        summary: |
@@ -37,16 +45,35 @@
          Page 10: White Cap LP - Invoice 27993
    ```
 3. Continue until all pages are scanned
-4. Present summary to user:
-   - Prime contractor identified
-   - Owner identified
-   - Number of vendors found
-   - SOV line count
-   - Total documents spotted
-5. Ask user to confirm or correct
-6. Update workflow.yaml: `current_phase: classify`
+4. **For large PDFs (100+ pages):** Use Task agents to process multiple batches in parallel
 
-**For large PDFs (100+ pages):** Use Task agents to process multiple batches in parallel. Split images into groups and assign each group to a Task agent. Merge results into scratchpad.
+### ⛔ STOP — User Confirmation Required
+
+Present a summary to the user:
+```
+📋 Scan Complete — Here's what I found:
+
+🏗️ Prime Contractor: Skanska USA Building Inc
+🏢 Owner: Jackson Health System
+📅 Billing Period: Through 01/31/2024
+📄 Total Pages: 156
+
+👷 Vendors Identified (11):
+  1. White Cap LP — pages 8-14 (invoices, lien waiver)
+  2. Precision Portables LLC — pages 15-22 (invoices)
+  3. ...
+
+📊 SOV: 51 line items found on pages 3-7
+
+Does this look right? Any vendors I missed or got wrong?
+Reply with corrections or "looks good" to proceed.
+```
+
+**Wait for user response.** Apply any corrections before proceeding.
+
+Update workflow.yaml: `current_phase: classify`
+
+---
 
 ## Phase 2: CLASSIFY
 
@@ -65,7 +92,7 @@
    prime_docs:
      - type: cover_sheet
        pages: [1]
-     - type: g7_03
+     - type: g702
        pages: [2]
      - type: sov
        pages: [3, 7]
@@ -91,8 +118,44 @@
    [2] Delivery ticket
    [3] Let me re-read more carefully
    ```
+
+### ⛔ STOP — User Confirmation Required
+
+Present the full document tree:
+```
+📁 Document Tree — DTC PA07
+
+📋 Prime Contractor Documents:
+  • Cover Sheet (p.1)
+  • G702 Application for Payment (p.2)
+  • G703 Schedule of Values (pp.3-7, 51 line items)
+
+👷 White Cap LP (pp.8-14):
+  📄 Invoice #PP0000232850 (pp.8-9)
+  📄 Invoice #27993 (p.10)
+  📄 Invoice #28150 (pp.11-12)
+  📜 Conditional Lien Waiver (p.13)
+  📜 Unconditional Lien Waiver (p.14)
+
+👷 Precision Portables LLC (pp.15-22):
+  📄 Invoice #INV-9934 (pp.15-17)
+  📜 Conditional Lien Waiver (p.18)
+  ...
+
+Please review:
+- Are the vendor names correct?
+- Are document types correctly identified?
+- Any documents I missed or misclassified?
+
+Reply with corrections or "looks good" to proceed.
+```
+
+**Wait for user response.** Apply corrections.
+
 5. Generate classification Excel: `exports/classification.xlsx`
 6. Update workflow.yaml: `current_phase: extract`
+
+---
 
 ## Phase 3: EXTRACT
 
@@ -106,51 +169,171 @@
       - **Invoice**: vendor name, address, invoice #, date, amount, line items, tax, total
       - **Lien Waiver**: type (conditional/unconditional), period, amount, signed status
       - **Change Order**: CO number, description, amount, approval status
-      - **Certified Payroll**: contractor, project, week ending, employees, hours, rates
+      - **Certified Payroll**: contractor, project, week ending, employees, hours, rates, gross pay, deductions, compliance statement
+      - **Insurance COI**: coverages, limits, expiration dates
       - **Delivery Ticket**: date, items, quantities, receiver
    d. Save to `vendors/<vendor-slug>/invoices.yaml`, `lien-waivers.yaml`, etc.
-   e. Generate vendor Excel: `vendors/<vendor-slug>/<vendor-slug>.xlsx`
-   f. Report progress: "✅ White Cap LP extracted — 3 docs, $866.61 total"
-3. If extraction is uncertain → show user what was found, ask to confirm
-4. Update workflow.yaml: `current_phase: audit`
+   e. **Generate vendor Excel** (MANDATORY): `vendors/<vendor-slug>/<vendor-slug>.xlsx`
+      - Sheet per document type (Invoices, Lien Waivers, Change Orders, etc.)
+   f. Report progress: "✅ White Cap LP extracted — 3 invoices, 1 lien waiver, $866.61 total"
+
+### ⛔ STOP — User Confirmation Required
+
+After extracting all vendors, present a data summary:
+```
+📊 Extraction Complete — Key Data Points:
+
+👷 White Cap LP:
+  💰 Invoices: 3 totaling $866.61
+    • #PP0000232850 — $234.50
+    • #27993 — $312.11
+    • #28150 — $320.00
+  📜 Lien Waiver: Conditional, $866.61
+  ✅ Excel generated: white-cap-lp.xlsx
+
+👷 Precision Portables LLC:
+  💰 Invoices: 1 totaling $3,450.00
+    • #INV-9934 — $3,450.00
+  📜 Lien Waiver: Conditional, $3,450.00
+  ✅ Excel generated: precision-portables-llc.xlsx
+
+...
+
+Please verify:
+- Do the amounts look correct?
+- Any invoices I missed or got wrong?
+- Ready to run audit checks?
+
+Reply with corrections or "looks good" to proceed.
+```
+
+**Wait for user response.** Apply corrections.
+
+3. Update workflow.yaml: `current_phase: audit`
+
+---
 
 ## Phase 4: AUDIT
 
-**Goal:** Apply compliance rules and generate findings.
+**Goal:** Apply all 30 compliance rules and generate findings.
 
 1. Load audit rules from `references/audit-rules.md`
 2. Read all vendor YAML data
-3. Apply each audit check (see references/audit-rules.md for full list)
-4. Save findings to `.payapp-audit/<project>/audit/findings.yaml`:
-   ```yaml
-   findings:
-     - vendor: "White Cap LP"
-       check: duplicate_invoice_same_vendor
-       severity: error
-       message: "Invoice #PP0000232850 appears 3 times"
-       pages: [8, 9, 20, 21, 45, 46]
-   ```
-5. Generate audit findings Excel: `exports/audit-findings.xlsx`
-6. Present findings summary grouped by severity
+3. Read G702/G703 data
+4. Apply ALL 30 audit checks:
+
+   **Category A — G702/G703 Math (Rules 1-5):**
+   - G702 contract sum, retainage, current payment due
+   - G703 line item totals, balance to finish
+
+   **Category B — Invoice & SOV Matching (Rules 6-8):**
+   - Invoice-to-SOV matching (GMP only)
+   - Duplicate invoices (same vendor and cross-vendor)
+
+   **Category C — Lien Waiver Compliance (Rules 9-10):**
+   - Missing waivers, amount mismatches
+
+   **Category D — Insurance (Rules 11-12):**
+   - Expired certificates, expiring soon
+
+   **Category E — Davis-Bacon (Rules 13-16):**
+   - Missing payroll, OT calculation, WH-347 completeness, compliance statement
+
+   **Category F — Billing Integrity (Rules 17-20):**
+   - Front-loading, overbilling, retainage compliance, progress reality
+
+   **Category G — Continuity & Integration (Rules 21-22):**
+   - Previous pay app continuity, change order integration
+
+   **Category H — Stored Materials (Rule 23):**
+   - Excessive materials, missing delivery tickets
+
+   **Category I — Fraud Detection (Rules 24-28):**
+   - Payroll reconciliation, round numbers, labor rates, work velocity, vendor concentration
+
+   **Category J — Data Quality (Rules 29-30):**
+   - Period date mismatch, vendor name mismatch
+
+5. Save findings to `.payapp-audit/<project>/audit/findings.yaml`
+6. Generate audit findings Excel (MANDATORY): `exports/audit-findings.xlsx`
+   - Sheet: "All Findings" — every finding with details
+   - Sheet: "Summary by Vendor" — error/warning/info counts per vendor
+   - Sheet: "Summary by Rule" — counts per rule with affected vendors
+
+### ⛔ STOP — User Confirmation Required
+
+Present findings summary:
+```
+🔍 Audit Complete — 30 Rules Checked
+
+📊 Results:
+  🔴 Errors: 5
+  🟡 Warnings: 8
+  ℹ️ Info: 3
+
+🔴 Critical Findings:
+  1. White Cap LP: Duplicate invoice #PP0000232850 (appears 3 times)
+  2. Precision Portables: Missing lien waiver
+  3. G702: Contract sum doesn't match ($1,245,000 vs expected $1,244,850)
+  4. SOV Line 12: Overbilled by $2,340
+  5. Metro Electric: Insurance expired 12/31/2025
+
+🟡 Warnings:
+  1. Round number invoices: 4 of 7 are perfectly round ($5,000, $10,000...)
+  2. White Cap LP: Lien waiver amount mismatch ($866.61 vs $854.50)
+  ...
+
+📋 Audit findings Excel: exports/audit-findings.xlsx
+
+Want to:
+[1] Dig deeper into any specific finding
+[2] Proceed to final report
+[3] Re-run audit with adjustments
+```
+
+**Wait for user response.**
+
 7. Update workflow.yaml: `current_phase: report`
+
+---
 
 ## Phase 5: REPORT
 
-**Goal:** Package everything up for the user.
+**Goal:** Generate final deliverables and package everything.
 
 1. Generate executive summary: `audit/summary.yaml`
-2. Ensure all vendor Excel files are generated
-3. Create final zip:
+2. Generate summary Excel: `exports/executive-summary.xlsx`
+3. Verify ALL vendor Excel files exist (one per vendor, sheet per doc type)
+4. Verify audit findings Excel exists
+5. Create final zip:
    ```bash
    cd .payapp-audit/<project>
    zip -r exports/<project>-complete.zip exports/ vendors/
    ```
-4. Present final summary:
-   - Total documents processed
-   - Total vendors
-   - Findings by severity (🔴 errors, 🟡 warnings, ℹ️ info)
-   - List of all export files
-5. Ask if user wants to dig deeper into any vendor or finding
+6. Present final deliverables:
+   ```
+   📦 Audit Package Ready!
+
+   📁 Files:
+     • exports/classification.xlsx — Document classification
+     • exports/audit-findings.xlsx — All audit findings
+     • exports/executive-summary.xlsx — Executive summary
+     • vendors/white-cap-lp/white-cap-lp.xlsx — White Cap LP data
+     • vendors/precision-portables/precision-portables.xlsx — Precision Portables data
+     • ... (one per vendor)
+     • exports/dtc-pa07-complete.zip — Everything zipped
+
+   📊 Summary:
+     • 156 pages processed
+     • 11 vendors audited
+     • 42 documents classified
+     • 30 compliance rules checked
+     • 5 errors, 8 warnings, 3 info items
+
+   Want me to email this to anyone or dig deeper into anything?
+   ```
+
+---
 
 ## State Directory Structure
 
@@ -166,14 +349,18 @@
     │       ├── profile.yaml
     │       ├── invoices.yaml
     │       ├── lien-waivers.yaml
+    │       ├── change-orders.yaml
+    │       ├── certified-payroll.yaml
+    │       ├── insurance.yaml
     │       ├── findings.yaml
-    │       └── <vendor-slug>.xlsx
+    │       └── <vendor-slug>.xlsx    # ← MANDATORY per-vendor Excel
     ├── audit/
     │   ├── findings.yaml
     │   └── summary.yaml
     └── exports/
         ├── classification.xlsx
-        ├── audit-findings.xlsx
+        ├── audit-findings.xlsx       # ← MANDATORY
+        ├── executive-summary.xlsx
         └── <project>-complete.zip
 ```
 
@@ -194,4 +381,9 @@ phases:
   extract: pending
   audit: pending
   report: pending
+user_confirmations:
+  scan: null       # Will be set to confirmed/corrected
+  classify: null
+  extract: null
+  audit: null
 ```
