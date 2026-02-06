@@ -1,0 +1,8 @@
+{
+  "name": "payapp-auditor",
+  "description": "Audit construction payment applications (payapps) for compliance issues. Guides non-technical users through document classification, data extraction, and audit checks.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Apoorv Garg"
+  }
+}
