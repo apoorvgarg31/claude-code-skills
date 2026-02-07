@@ -2,9 +2,11 @@
   "name": "payapp-auditor-tools",
   "version": "1.0.0",
   "private": true,
-  "description": "Excel generation tools for PayApp Auditor skill",
+  "description": "Excel and PDF generation tools for PayApp Auditor skill",
   "dependencies": {
     "xlsx": "^0.18.5",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "pdfkit": "^0.15.0",
+    "pdfkit": "^0.16.0"
   }
 }

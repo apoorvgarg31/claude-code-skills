@@ -305,12 +305,26 @@ Want to:
 2. Generate summary Excel: `exports/executive-summary.xlsx`
 3. Verify ALL vendor Excel files exist (one per vendor, sheet per doc type)
 4. Verify audit findings Excel exists
-5. Create final zip:
+5. **Generate AI Audit Report PDF:**
+   a. Build `audit/report-data.yaml` containing all report data:
+      - `project`: name, gc, owner, period, total_pages
+      - `g702`: all G702 fields (contract sum, retainage, current payment due, balance, etc.)
+      - `sov`: line_items array with scheduled values, completed amounts, percentages
+      - `findings`: full findings array with severity, vendor, rule_number, category, message, recommendation
+      - `vendors`: per-vendor summary with name, total_billed, document_count, errors, warnings, risk_level
+      - `top_issues`: ordered list of most critical recommendations
+      - `overall_risk`, `recommendation`, `audit_date`, `rules_checked`, `total_documents`
+   b. Generate PDF:
+      ```bash
+      node scripts/generate-pdf.js audit/report-data.yaml exports/audit-report.pdf
+      ```
+   c. Confirm PDF was created: `ls -la exports/audit-report.pdf`
+6. Create final zip:
    ```bash
    cd .payapp-audit/<project>
    zip -r exports/<project>-complete.zip exports/ vendors/
    ```
-6. Present final deliverables:
+7. Present final deliverables:
    ```
    📦 Audit Package Ready!
 
@@ -318,6 +332,7 @@ Want to:
      • exports/classification.xlsx — Document classification
      • exports/audit-findings.xlsx — All audit findings
      • exports/executive-summary.xlsx — Executive summary
+     • exports/audit-report.pdf — AI Audit Report with prime contractor analysis
      • vendors/white-cap-lp/white-cap-lp.xlsx — White Cap LP data
      • vendors/precision-portables/precision-portables.xlsx — Precision Portables data
      • ... (one per vendor)
@@ -361,6 +376,7 @@ Want to:
         ├── classification.xlsx
         ├── audit-findings.xlsx       # ← MANDATORY
         ├── executive-summary.xlsx
+        ├── audit-report.pdf          # ← AI Audit Report PDF
         └── <project>-complete.zip
 ```
 

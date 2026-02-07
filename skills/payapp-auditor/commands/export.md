@@ -21,12 +21,17 @@ allowed-tools: Read, Write, Bash(node:*), Bash(zip:*), Bash(ls:*), Bash(mkdir:*)
      [2] Specific vendor Excel
      [3] Audit findings only
      [4] Executive summary
+     [5] AI Audit Report PDF
      ```
 
 3. **Generate requested exports**
    - Read vendor YAML data
    - Use `scripts/generate-excel.js` to create .xlsx files
+   - Use `scripts/generate-pdf.js` to create audit report PDF (option 5 or --pdf or --all)
    - Place in `exports/` directory
+   - For PDF report (option 5 or --all):
+     1. Build `audit/report-data.yaml` from audit state (project info, findings, vendor data, G702)
+     2. Run `node scripts/generate-pdf.js audit/report-data.yaml exports/audit-report.pdf`
 
 4. **Create zip bundle** (if --all or option 1)
    ```bash
@@ -43,5 +48,6 @@ allowed-tools: Read, Write, Bash(node:*), Bash(zip:*), Bash(ls:*), Bash(mkdir:*)
    ├── white-cap-lp.xlsx
    ├── aaa-automated.xlsx
    ├── audit-findings.xlsx
+   ├── audit-report.pdf
    └── dtc-pa07-complete.zip
    ```

@@ -64,7 +64,7 @@ Phase 3: EXTRACT → Per-vendor data extraction + vendor Excel (MANDATORY)
 Phase 4: AUDIT → Apply ALL 30 compliance rules, generate findings Excel (MANDATORY)
     ↓  ⛔ STOP — Present findings, ask if user wants to dig deeper
     ↓
-Phase 5: REPORT → Executive summary, zip all exports
+Phase 5: REPORT → Executive summary, AI audit report PDF, zip all exports
 ```
 
 **For detailed phase instructions including exact confirmation prompts:** See `references/workflow-phases.md`
@@ -92,6 +92,12 @@ Every audit MUST produce these files:
 ### Executive Summary Excel
 - **File:** `exports/executive-summary.xlsx`
 - Project info, findings summary, top issues
+
+### AI Audit Report PDF
+- **File:** `exports/audit-report.pdf`
+- Professional PDF report with cover page, executive summary, prime contractor analysis (G702/G703), findings table grouped by severity, vendor summary, and top recommendations
+- Includes color-coded severity indicators, CONFIDENTIAL watermark, and page footers
+- Generated from `audit/report-data.yaml` via `scripts/generate-pdf.js`
 
 ### Classification Excel
 - **File:** `exports/classification.xlsx`
@@ -141,6 +147,14 @@ qpdf --split-pages "payapp.pdf" "chunks/chunk-%d.pdf"
 ```bash
 node scripts/generate-excel.js <type> <input.yaml> <output.xlsx>
 # Types: classification, vendor, findings, summary
+```
+
+### PDF Report Generation
+```bash
+node scripts/generate-pdf.js <input.yaml> <output.pdf>
+# Input: report-data.yaml with project info, findings, vendor data, G702 data
+# Output: Professional audit report PDF with cover, executive summary,
+#         prime contractor analysis, findings table, vendor summary, recommendations
 ```
 
 ### Zip exports
