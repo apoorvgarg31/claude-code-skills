@@ -19,17 +19,19 @@ You are the conductor. Other agents (Codex, Gemini CLI, Aider, Claude) are speci
 
 ## State Folder Structure
 
-All state lives in `./.orchestra/` in the user's project:
+All state lives in `./.orchestra/<project>/` in the user's project:
 
 ```
 .orchestra/
-├── config.yaml         # Agent configuration (which agent for which phase)
-├── workflow.yaml       # Current phase, history, status
-├── tech-spec.yaml      # Requirements & architecture (from BA)
-├── dev-progress.yaml   # Implementation progress (from Developer)
-├── review-notes.yaml   # Code review feedback (from Reviewer)
-├── test-results.yaml   # Test results (from Tester)
-└── deploy-status.yaml  # Deployment status (from DevOps)
+└── <project>/
+    ├── config.yaml         # Agent configuration (which agent for which phase)
+    ├── workflow.yaml       # Current phase, history, status
+    ├── tech-spec.yaml      # Requirements & architecture (from BA)
+    ├── dev-progress.yaml   # Implementation progress (from Developer)
+    ├── review-notes.yaml   # Code review feedback (from Reviewer)
+    ├── test-results.yaml   # Test results (from Tester)
+    ├── deploy-status.yaml  # Deployment status (from DevOps)
+    └── sessions.yaml       # tmux session map per phase+agent
 ```
 
 ## Configuration (.orchestra/config.yaml)
@@ -89,27 +91,47 @@ terminal:
 - Agent handles deployment
 - Updates deploy-status.yaml
 
-## Spawning Agents in tmux
+## Spawning Agents in tmux (Session Reuse)
 
-When delegating to another agent, use this pattern:
+Each phase+agent gets a dedicated tmux session that is reused when returning to that phase. Persist the mapping in `./.orchestra/<project>/sessions.yaml`:
+
+```yaml
+sessions:
+  developer:
+    codex:
+      tmux_session: orchestra-<project>-developer-codex
+      created_at: "<timestamp>"
+      last_seen: "<timestamp>"
+```
+
+When delegating to another agent:
 
 ```bash
-# Create new tmux window for the agent
-tmux new-window -t orchestra -n "developer"
+# 1) Look up session in sessions.yaml
+# 2) If session exists AND tmux has-session -t <session> succeeds: reuse
+# 3) Else create a new tmux session and record it
 
-# Send the agent command with context
-tmux send-keys -t orchestra:developer "cd $(pwd) && codex --yolo 'You are the DEVELOPER agent in an orchestra workflow.
+tmux has-session -t orchestra-<project>-developer-codex 2>/dev/null || \
+  tmux new-session -d -s orchestra-<project>-developer-codex -c "$(pwd)"
+
+# Send the agent command with context only when creating a fresh session
+tmux send-keys -t orchestra-<project>-developer-codex "cd $(pwd) && codex --yolo 'You are the DEVELOPER agent in an orchestra workflow.
 
 Read the following files for context:
-- .orchestra/tech-spec.yaml (requirements)
-- .orchestra/workflow.yaml (current state)
-- .orchestra/dev-progress.yaml (your progress tracker)
+- .orchestra/<project>/tech-spec.yaml (requirements)
+- .orchestra/<project>/workflow.yaml (current state)
+- .orchestra/<project>/dev-progress.yaml (your progress tracker)
 
 Your task: Implement the features in the tech spec.
-After EACH task, update .orchestra/dev-progress.yaml with your progress.
+After EACH task, update .orchestra/<project>/dev-progress.yaml with your progress.
 When ALL tasks are complete, add \"status: complete\" to dev-progress.yaml.
 
 Start now.'" Enter
+```
+
+If the session already exists, do NOT spawn a new one. Tell the user to attach:
+```
+tmux attach -t orchestra-<project>-developer-codex
 ```
 
 ### Agent Commands

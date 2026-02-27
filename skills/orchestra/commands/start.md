@@ -76,6 +76,11 @@ phases:
 history: []
 ```
 
+Create `./.orchestra/<project-name>/sessions.yaml`:
+```yaml
+sessions: {}
+```
+
 ## Step 4: Business Analyst Phase (YOU handle this)
 
 **Read `skills/orchestrator/ba-phase.md` for detailed instructions.**
@@ -117,35 +122,52 @@ phases:
   developer: in-progress
 ```
 
-## Step 3: Delegate to Developer Agent
+## Step 5: Delegate to Developer Agent
 
 Check config for which agent to use. If NOT opus:
 
-1. Ensure tmux session exists:
+1. Load or initialize `./.orchestra/<project-name>/sessions.yaml`
+
+2. Determine session name:
+```
+<session_prefix>-<phase>-<agent>
+```
+Example: `orchestra-todo-api-developer-codex`
+
+3. If a session mapping exists AND tmux has-session succeeds, reuse it and update `last_seen`.
+   Otherwise create a new session and record it in sessions.yaml.
+
+4. Create or reuse the tmux session:
 ```bash
-tmux has-session -t orchestra 2>/dev/null || tmux new-session -d -s orchestra -c "$(pwd)"
+tmux has-session -t orchestra-<project-name>-developer-codex 2>/dev/null || \
+  tmux new-session -d -s orchestra-<project-name>-developer-codex -c "$(pwd)"
 ```
 
-2. Spawn developer agent in new window:
-```bash
-tmux new-window -t orchestra -n "developer" -c "$(pwd)"
+5. If creating a fresh session, write to sessions.yaml:
+```yaml
+sessions:
+  developer:
+    codex:
+      tmux_session: orchestra-<project-name>-developer-codex
+      created_at: "<timestamp>"
+      last_seen: "<timestamp>"
 ```
 
-3. Send agent command (example for codex):
+6. Send agent command ONLY when creating a fresh session (example for codex):
 ```bash
-tmux send-keys -t orchestra:developer "codex --yolo 'You are the DEVELOPER agent.
+tmux send-keys -t orchestra-<project-name>-developer-codex "codex --yolo 'You are the DEVELOPER agent.
 
 PROJECT DIRECTORY: $(pwd)
 
 Read these files for context:
-- .orchestra/tech-spec.yaml (requirements to implement)
-- .orchestra/workflow.yaml (current workflow state)
+- .orchestra/<project-name>/tech-spec.yaml (requirements to implement)
+- .orchestra/<project-name>/workflow.yaml (current workflow state)
 
 Your tasks:
 1. Read the tech spec carefully
 2. Implement features one by one
 3. Commit after each feature
-4. Update .orchestra/dev-progress.yaml after each task:
+4. Update .orchestra/<project-name>/dev-progress.yaml after each task:
 
    tasks:
      - id: 1
@@ -159,14 +181,14 @@ Your tasks:
 Start implementing now.'" Enter
 ```
 
-4. Tell the user:
+7. Tell the user:
 ```
 🚀 Developer agent (codex) spawned in tmux!
 
 To interact with it:
-  tmux attach -t orchestra:developer
+  tmux attach -t orchestra-<project-name>-developer-codex
 
-I'll monitor .orchestra/dev-progress.yaml for completion.
+I'll monitor .orchestra/<project-name>/dev-progress.yaml for completion.
 Let me know when the developer is done, or I'll detect it automatically.
 ```
 
@@ -175,7 +197,7 @@ Let me know when the developer is done, or I'll detect it automatically.
 Poll for completion or wait for user signal:
 ```bash
 # Check if dev-progress.yaml has status: complete
-grep -q "^status: complete" .orchestra/dev-progress.yaml
+grep -q "^status: complete" .orchestra/<project-name>/dev-progress.yaml
 ```
 
 When complete, proceed to Code Review phase (similar delegation pattern).
@@ -183,11 +205,11 @@ When complete, proceed to Code Review phase (similar delegation pattern).
 ## Delegation Pattern for Each Phase
 
 For each delegatable phase:
-1. Check `.orchestra/config.yaml` for assigned agent
+1. Check `.orchestra/<project-name>/config.yaml` for assigned agent
 2. If agent is `opus`: handle directly
 3. If agent is other: spawn in tmux with appropriate prompt
 4. Wait for completion signal in state file
-5. Update `.orchestra/workflow.yaml`
+5. Update `.orchestra/<project-name>/workflow.yaml`
 6. Proceed to next phase
 
 ## Completion

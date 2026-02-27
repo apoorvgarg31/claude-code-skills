@@ -27,6 +27,7 @@ Opus (Claude Code) orchestrates while delegating work to specialized AI agents (
 /orchestra:continue <project># Continue to next phase after agent completes
 /orchestra:status <project>  # Check project status
 /orchestra:projects          # List all projects
+/orchestra:team:start <project>  # Team tmux dashboard (all live agents)
 ```
 
 **Supported Agents:** `codex`, `claude`, `gemini`, `aider`, `droid`, `opus`
@@ -77,7 +78,8 @@ Each skill uses its own hidden folder for state:
 │   ├── config.yaml
 │   ├── tech-spec.yaml
 │   ├── workflow.yaml
-│   └── dev-progress.yaml
+│   ├── dev-progress.yaml
+│   └── sessions.yaml
 └── another-project/
     └── ...
 ```

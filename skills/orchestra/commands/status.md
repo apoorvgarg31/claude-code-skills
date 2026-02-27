@@ -27,12 +27,13 @@ Show all projects:
 
 ### 2. If user specifies project or only one exists
 
-Read `./.orchestra/<project-name>/workflow.yaml` for details.
+Read `./.orchestra/<project-name>/workflow.yaml` and `./.orchestra/<project-name>/sessions.yaml` for details.
 
 ## Check tmux sessions
 
 ```bash
-tmux list-windows -t orchestra 2>/dev/null || echo "No orchestra session"
+# For each mapped session in sessions.yaml:
+tmux has-session -t <session> 2>/dev/null && echo "alive: <session>" || echo "stale: <session>"
 ```
 
 ## Display Status
@@ -41,7 +42,7 @@ Show:
 - Current phase
 - Status of each phase (pending/in-progress/complete)
 - Which agent is assigned to each phase
-- Any active tmux windows
+- Any active tmux sessions from sessions.yaml
 
 ## Example Output
 
@@ -53,13 +54,13 @@ Current Phase: developer (in-progress)
 
 Phases:
   ✅ business-analyst (opus) — complete
-  🔄 developer (codex) — in-progress [tmux: orchestra:developer]
+  🔄 developer (codex) — in-progress [tmux: orchestra-<project>-developer-codex]
   ⏳ code-review (claude) — pending
   ⏳ test (opus) — pending
   ⏳ devops (opus) — pending
 
 Active Agents:
-  • orchestra:developer — codex running
+  • orchestra-<project>-developer-codex — codex running
 
-To attach to developer: tmux attach -t orchestra:developer
+To attach to developer: tmux attach -t orchestra-<project>-developer-codex
 ```

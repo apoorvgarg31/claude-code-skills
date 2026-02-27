@@ -33,6 +33,7 @@ cat ./.orchestra/<project-name>/workflow.yaml
 cat ./.orchestra/<project-name>/dev-progress.yaml 2>/dev/null
 cat ./.orchestra/<project-name>/review-notes.yaml 2>/dev/null
 cat ./.orchestra/<project-name>/test-results.yaml 2>/dev/null
+cat ./.orchestra/<project-name>/sessions.yaml 2>/dev/null
 ```
 
 ### 2. Determine what's next
@@ -56,7 +57,7 @@ phases:
   <next>: in-progress
 ```
 
-Then spawn the next agent (read from config.yaml) using the same delegation pattern as start.md.
+Then spawn or reuse the next agent (read from config.yaml) using the same session-reuse pattern as start.md, and update `sessions.yaml` with `last_seen`.
 
 ### 4. If current phase NOT complete
 
@@ -65,7 +66,7 @@ Tell user:
 ⏳ Current phase (<phase>) is still in progress.
 
 Check on the agent:
-  tmux attach -t orchestra:<phase>
+  tmux attach -t orchestra-<project>-<phase>-<agent>
 
 Or check status:
   /orchestra:status
@@ -98,10 +99,10 @@ Moving to Code Review phase.
 
 🚀 Spawning code review agent (claude) in tmux...
 
-[tmux window created: orchestra:code-review]
+[tmux session reused or created: orchestra-<project>-code-review-claude]
 
 Code reviewer is running! 
-  tmux attach -t orchestra:code-review
+  tmux attach -t orchestra-<project>-code-review-claude
 
 Run /orchestra:continue again when code review is done.
 ```

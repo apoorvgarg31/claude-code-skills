@@ -18,9 +18,10 @@ Manually delegate a specific phase to an agent.
 ## Process
 
 1. Parse arguments to get phase and optional agent override
-2. Read `./.orchestra/config.yaml` for configured agent (or use override)
-3. Read `./.orchestra/workflow.yaml` for current state
-4. Spawn agent in tmux with appropriate context
+2. Read `./.orchestra/<project-name>/config.yaml` for configured agent (or use override)
+3. Read `./.orchestra/<project-name>/workflow.yaml` for current state
+4. Spawn or reuse agent in tmux with appropriate context
+5. Record session mapping in `./.orchestra/<project-name>/sessions.yaml`
 
 ## Supported Phases
 - `developer` — Implementation
@@ -28,17 +29,28 @@ Manually delegate a specific phase to an agent.
 - `test` — Testing
 - `devops` — Deployment
 
-## Spawning Pattern
+## Spawning Pattern (Session Reuse)
 
 ```bash
-# Ensure tmux session exists
-tmux has-session -t orchestra 2>/dev/null || tmux new-session -d -s orchestra -c "$(pwd)"
+# Resolve project name from workflow/config
+# Load sessions.yaml and look up: sessions.<phase>.<agent>.tmux_session
+# If mapped session exists and alive: reuse it
 
-# Create window for this phase
-tmux new-window -t orchestra -n "<phase>" -c "$(pwd)"
+tmux has-session -t orchestra-<project>-<phase>-<agent> 2>/dev/null || \
+  tmux new-session -d -s orchestra-<project>-<phase>-<agent> -c "$(pwd)"
 
-# Send agent-specific command
-tmux send-keys -t orchestra:<phase> "<agent_command>" Enter
+# Send agent-specific command ONLY when creating a fresh session
+tmux send-keys -t orchestra-<project>-<phase>-<agent> "<agent_command>" Enter
+```
+
+Update `./.orchestra/<project-name>/sessions.yaml` (create if missing):
+```yaml
+sessions:
+  <phase>:
+    <agent>:
+      tmux_session: orchestra-<project>-<phase>-<agent>
+      created_at: "<timestamp>"
+      last_seen: "<timestamp>"
 ```
 
 ## Agent Commands
@@ -48,11 +60,11 @@ tmux send-keys -t orchestra:<phase> "<agent_command>" Enter
 codex --yolo 'You are the <PHASE> agent in an orchestra workflow.
 
 PROJECT: $(pwd)
-Read: .orchestra/tech-spec.yaml, .orchestra/workflow.yaml, .orchestra/<previous-phase>.yaml
+Read: .orchestra/<project>/tech-spec.yaml, .orchestra/<project>/workflow.yaml, .orchestra/<project>/<previous-phase>.yaml
 
 <Phase-specific instructions>
 
-Update .orchestra/<phase>-output.yaml when done. Add "status: complete" at top when finished.'
+Update .orchestra/<project>/<phase>-output.yaml when done. Add "status: complete" at top when finished.'
 ```
 
 ### Gemini CLI
@@ -60,16 +72,16 @@ Update .orchestra/<phase>-output.yaml when done. Add "status: complete" at top w
 gemini 'You are the <PHASE> agent in an orchestra workflow.
 
 PROJECT: $(pwd)
-Read: .orchestra/tech-spec.yaml, .orchestra/workflow.yaml
+Read: .orchestra/<project>/tech-spec.yaml, .orchestra/<project>/workflow.yaml
 
 <Phase-specific instructions>
 
-Update .orchestra/<phase>-output.yaml when done.'
+Update .orchestra/<project>/<phase>-output.yaml when done.'
 ```
 
 ### Aider
 ```bash
-aider --message 'You are the <PHASE> agent. Read .orchestra/tech-spec.yaml for requirements. <Phase-specific instructions>'
+aider --message 'You are the <PHASE> agent. Read .orchestra/<project>/tech-spec.yaml for requirements. <Phase-specific instructions>'
 ```
 
 ### Claude
@@ -81,7 +93,7 @@ Read state files for context.
 
 <Phase-specific instructions>
 
-Update .orchestra/<phase>-output.yaml when done.'
+Update .orchestra/<project>/<phase>-output.yaml when done.'
 ```
 
 ## After Spawning
@@ -91,10 +103,10 @@ Tell the user:
 🚀 <Phase> agent (<agent>) spawned in tmux!
 
 To interact:
-  tmux attach -t orchestra:<phase>
+  tmux attach -t orchestra-<project>-<phase>-<agent>
 
 To detach (keep agent running):
   Ctrl+B, then D
 
-I'll wait for .orchestra/<phase>-output.yaml to show "status: complete"
+I'll wait for .orchestra/<project>/<phase>-output.yaml to show "status: complete"
 ```

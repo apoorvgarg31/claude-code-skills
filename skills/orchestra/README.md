@@ -46,7 +46,15 @@ This walks you through choosing agents for each phase.
 /orchestra:status
 ```
 
-### 4. Manually delegate a phase
+### 4. Team dashboard (tmux)
+```
+/orchestra:team:start <project>
+/orchestra:team:status <project>   # optional
+/orchestra:team:view <project>     # optional (alias style)
+/orchestra:team:cleanup <project>  # optional, safe by default
+```
+
+### 5. Manually delegate a phase
 ```
 /orchestra:delegate developer codex
 ```
@@ -86,6 +94,8 @@ agents:
 6. **DevOps**: Spawns deploy agent (optional)
 
 State files in `./.orchestra/` serve as the communication layer between agents.
+
+New in v1.2: session reuse is recorded in `./.orchestra/<project>/sessions.yaml`, so returning to a phase reuses the same tmux session and preserves agent context.
 
 ## License
 
