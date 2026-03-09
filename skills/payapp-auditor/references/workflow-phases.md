@@ -6,7 +6,7 @@ Between every phase, **stop and ask the user to confirm** before proceeding. Nev
 
 ---
 
-## Phase 0: INIT (`/payapp:start`)
+## Phase 0: INIT (`/payapp-auditor:start`)
 
 1. Ask for project name (e.g., "DTC PA07")
 2. Ask for PDF file path or folder location

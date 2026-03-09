@@ -65,4 +65,4 @@ fi
 echo "✅ Node.js dependencies installed"
 
 echo ""
-echo "🎉 Setup complete! You can now use /payapp:start"
+echo "🎉 Setup complete! You can now use /payapp-auditor:start"

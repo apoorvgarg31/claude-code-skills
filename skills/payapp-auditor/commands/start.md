@@ -31,7 +31,7 @@ echo "MISSING:$missing"
   macOS:
     brew install poppler qpdf node zip
 
-Then run /payapp:start again.
+Then run /payapp-auditor:start again.
 ```
 **Do NOT proceed until all deps are present.**
 

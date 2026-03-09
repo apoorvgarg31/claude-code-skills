@@ -50,7 +50,7 @@ Requires: `poppler-utils` (pdftoppm, pdfinfo), `qpdf`, `zip`, `node`
 ## Workflow
 
 ```
-/payapp:start → Init project, get PDF location
+/payapp-auditor:start → Init project, get PDF location
     ↓
 Phase 1: SCAN → Read PDF pages via vision, build scratchpad
     ↓  ⛔ STOP — Ask user to confirm vendors & structure found
@@ -151,7 +151,7 @@ zip -r exports/<project>-complete.zip exports/ vendors/
 
 ## Resuming a Project
 
-When user runs `/payapp:continue`:
+When user runs `/payapp-auditor:continue`:
 1. List projects in `.payapp-audit/`
 2. Read `workflow.yaml` for current phase
 3. Resume from where we left off using state files
